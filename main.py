@@ -21,12 +21,8 @@ def main():
         # Options
         if (str(user_input) == '1'):
             run_floatation()
-            print(" Bye bye!")
-            break
         elif (str(user_input) == '2'):
             run_springs()
-            print(" Bye bye!")
-            break
         elif (str(user_input) == '3'):
             print(" Bye bye!")
             break

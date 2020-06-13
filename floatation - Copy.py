@@ -1,6 +1,7 @@
 # program_loop_run_floatation ##################################################
 def run_floatation():
 
+    obj_mass    = 0
     obj_density = 0
     obj_length  = 0
     obj_volume  = 0
@@ -23,24 +24,29 @@ def run_floatation():
     running = True
     while (running):
 
+        # Object volume
+        obj_length = obj_volume ** (1/3)
+
+        # Object mass
+        obj_mass = obj_density * obj_volume
+
         # Gravity force
-        grav_force = (obj_density * obj_volume) * gravity
+        grav_force = obj_mass * gravity
 
         # Impulse
         impulse = flu_density * gravity * obj_volume
 
         # Height
-        height = (grav_force / (flu_density * gravity)) / (obj_volume ** (1/3) * obj_volume ** (1/3))
-
+        height = (grav_force / (flu_density * gravity)) / (obj_length * obj_length)
 
         # Prints commands
         print("\n_______________________________________________________________")
         print("\n List of commands: 'set gravity x', 'set fluid_density x', ")
-        print("                   'set cube_density x', 'set cube_volume x'")
+        print("                   'set object_density x', 'set object_volume x'")
         print("                   'exit'")
 
         # Prints results
-        print(f"\n Object properties: Mass = {obj_density * obj_volume} kg, Density = {obj_density} kg/m3, Volume = {obj_volume} m3.")
+        print(f"\n Object properties: Mass = {obj_mass} kg, Density = {obj_density} kg/m3, Volume = {obj_volume} m3.")
         print(f" Fluid has a density of {flu_density} kg/m3, Gravity is {gravity} m/s2.")
         print(f"\n The object would float at {height} m.\n")
 
@@ -60,10 +66,10 @@ def run_floatation():
             elif (user_variable.lower() == "fluid_density"):
                 flu_density = float(user_value)
 
-            elif (user_variable.lower() == "cube_density"):
+            elif (user_variable.lower() == "object_density"):
                 obj_density = float(user_value)
 
-            elif (user_variable.lower() == "cube_volume"):
+            elif (user_variable.lower() == "object_volume"):
                 obj_volume = float(user_value)
 
         # Breaks the gameloop

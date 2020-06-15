@@ -3,14 +3,17 @@ def run_floatation():
 
     obj_density = 0
     obj_length  = 0
+    obj_center  = 0
     obj_volume  = 0
+    obj_mass    = 0
     gravity     = 0
     flu_density = 0
 
-    grav_force  = 0
-    impulse     = 0
+    gravity_force   = 0
+    submerse_volume  = 0
 
-    height      = 0
+    bottom_distance  = 0
+    center_of_mass_distance = 0
 
     # Simulation parameters
     # Asks for user input and saves the answers
@@ -19,31 +22,54 @@ def run_floatation():
     obj_density = float(input(" Insert cube density: "))
     obj_volume  = float(input(" Insert cube volume: "))
     
+    # Sets cube mass
+    obj_mass = obj_density * obj_volume
+
     # program loop
     running = True
     while (running):
 
-        # Gravity force
-        grav_force = (obj_density * obj_volume) * gravity
+        # Refresh results
+        # Object length
+        obj_length = obj_volume ** (1/3)
+        obj_center = obj_length / 2
 
-        # Impulse
-        impulse = flu_density * gravity * obj_volume
+        # Gravity force     = Fg
+        gravity_force = (obj_density * obj_volume) * gravity
 
-        # Height
-        height = (grav_force / (flu_density * gravity)) / (obj_volume ** (1/3) * obj_volume ** (1/3))
+        # Submerse Volume   = Fb
+        submerse_volume = gravity_force / (flu_density * gravity)
+
+        # Buoyance Height
+        bottom_distance = -submerse_volume / (obj_length * obj_length)
+
+        # Center of mass distance
+        center_of_mass_distance = (obj_length / 2) + bottom_distance
+
 
 
         # Prints commands
         print("\n_______________________________________________________________")
         print("\n List of commands: 'set gravity x', 'set fluid_density x', ")
         print("                   'set cube_density x', 'set cube_volume x'")
-        print("                   'exit'")
+        print("                   'set cube_mass x ', 'exit'")
 
         # Prints results
-        print(f"\n Object properties: Mass = {obj_density * obj_volume} kg, Density = {obj_density} kg/m3, Volume = {obj_volume} m3.")
-        print(f" Fluid has a density of {flu_density} kg/m3, Gravity is {gravity} m/s2.")
-        print(f"\n The object would float at {height} m.\n")
+        print(f"\n Object properties: Mass = " + "%.2f" % obj_mass + " kg, Density = " + "%.2f" % obj_density + " kg/m3, Volume = " + "%.2f" % obj_volume + " m3.")
+        print(f" Fluid has a density of " + "%.2f" % flu_density + " kg/m3, Gravity is " + "%.2f" % gravity + " m/s2.\n")
+        print(f" Center of mass distance: " + "%.2f" % center_of_mass_distance + "m from the surface. ")
 
+        # Prints the cube
+        if(center_of_mass_distance > 0):
+            buoying()
+
+        elif(center_of_mass_distance < - obj_length):
+            submerse()
+
+        elif(center_of_mass_distance < 0):
+            underwater()
+
+        
         # New inputs
         # Gets user input and splits the string
         user_input  = input(">")
@@ -63,8 +89,20 @@ def run_floatation():
             elif (user_variable.lower() == "cube_density"):
                 obj_density = float(user_value)
 
+                # Object mass
+                obj_mass = obj_density * obj_volume
+
             elif (user_variable.lower() == "cube_volume"):
                 obj_volume = float(user_value)
+
+                # Object mass
+                obj_mass = obj_density * obj_volume
+
+            elif (user_variable.lower() == "cube_mass"):
+                obj_mass = float(user_value)    
+
+                # Object volume
+                obj_volume = obj_mass / obj_density
 
         # Breaks the gameloop
         elif user_split_input.lower() == "exit":
@@ -72,3 +110,26 @@ def run_floatation():
             
         else:
             print("\n Invalid command")
+
+
+def buoying():
+
+    print("     _____    ")
+    print("    |     |   ")
+    print("  vv|vvvvv|vv ")
+    print("    |_____|   \n")
+
+def underwater():
+
+    print("     _____     ")
+    print("  vv|vvvvv|vv  ")
+    print("    |     |    ")
+    print("    |_____|    \n")
+
+def submerse():
+
+    print("  vvvvvvvvvvv  ")
+    print("    |     |    ")
+    print("    |     |    ")
+    print("    |_____|    \n")
+

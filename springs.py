@@ -35,7 +35,7 @@ def run_springs():
         # Prints results
         print(f"\n Object properties: Mass = " + "%.2f" % obj_mass + " kg, Gravity is " + "%.2f" % gravity + " m/s2.")
         print(f" Base spring length " + "%.2f" % base_length + " m, Constant is " + "%.2f" % constant + " N/m.")
-        print(f"\n The spring would stretch to {stretch} m.\n")
+        print(f"\n The spring would stretch to " + "%.2f" % stretch + " m.\n")
 
         # New inputs
         # Gets user input and splits the string

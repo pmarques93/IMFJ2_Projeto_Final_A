@@ -35,7 +35,7 @@ def run_floatation():
         obj_center = obj_length / 2
 
         # Gravity force     = Fg
-        gravity_force = (obj_density * obj_volume) * gravity
+        gravity_force = obj_mass * gravity
 
         # Submerse Volume   = Fb
         submerse_volume = gravity_force / (flu_density * gravity)
@@ -45,8 +45,6 @@ def run_floatation():
 
         # Center of mass distance
         center_of_mass_distance = (obj_length / 2) + bottom_distance
-
-
 
         # Prints commands
         print("\n_______________________________________________________________")
@@ -69,7 +67,6 @@ def run_floatation():
         elif(center_of_mass_distance < 0):
             underwater()
 
-        
         # New inputs
         # Gets user input and splits the string
         user_input  = input(">")

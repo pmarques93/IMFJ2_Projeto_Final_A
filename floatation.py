@@ -34,17 +34,17 @@ def run_floatation():
         obj_length = obj_volume ** (1/3)
         obj_center = obj_length / 2
 
-        # Gravity force     = Fg
+        # Gravity force
         gravity_force = obj_mass * gravity
 
-        # Submerse Volume   = Fb
+        # Submerse Volume
         submerse_volume = gravity_force / (flu_density * gravity)
 
         # Buoyance Height
         bottom_distance = -submerse_volume / (obj_length * obj_length)
 
         # Center of mass distance
-        center_of_mass_distance = (obj_length / 2) + bottom_distance
+        center_of_mass_distance = obj_center + bottom_distance
 
         # Prints commands
         print("\n_______________________________________________________________")
@@ -55,7 +55,7 @@ def run_floatation():
         # Prints results
         print(f"\n Object properties: Mass = " + "%.2f" % obj_mass + " kg, Density = " + "%.2f" % obj_density + " kg/m3, Volume = " + "%.2f" % obj_volume + " m3.")
         print(f" Fluid has a density of " + "%.2f" % flu_density + " kg/m3, Gravity is " + "%.2f" % gravity + " m/s2.\n")
-        print(f" Center of mass distance: " + "%.2f" % center_of_mass_distance + "m from the surface. ")
+        print(f" Center of mass distance: " + "%.2f" % center_of_mass_distance + " m from the surface.\n")
 
         # Prints the cube
         if(center_of_mass_distance > 0):
